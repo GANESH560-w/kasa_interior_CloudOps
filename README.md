@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kasa Interiors AWS Deployment Guide
 
 This project now includes:
@@ -341,3 +342,6 @@ For EC2:
 ```bash
 docker compose up -d --build
 ```
+=======
+# kasa_interior_CloudOps
+>>>>>>> 32cd0c67f8e14f0f7e113b5d6363d64d087694a3
