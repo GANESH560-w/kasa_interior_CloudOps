@@ -1,0 +1,103 @@
+CREATE DATABASE IF NOT EXISTS kasa_interiors;
+USE kasa_interiors;
+
+CREATE TABLE IF NOT EXISTS admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(80) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    name VARCHAR(120) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS enquiries (
+    id VARCHAR(40) PRIMARY KEY,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(120) NOT NULL,
+    phone VARCHAR(40) NOT NULL,
+    email VARCHAR(160) NOT NULL,
+    service VARCHAR(120) NOT NULL,
+    message TEXT NOT NULL,
+    status VARCHAR(40) NOT NULL DEFAULT 'New',
+    unread TINYINT(1) NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS customers (
+    id VARCHAR(40) PRIMARY KEY,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(120) NOT NULL,
+    phone VARCHAR(40) NOT NULL,
+    email VARCHAR(160) NULL,
+    address VARCHAR(255) NULL,
+    city VARCHAR(120) NULL,
+    notes TEXT NULL
+);
+
+CREATE TABLE IF NOT EXISTS contractors (
+    id VARCHAR(40) PRIMARY KEY,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(120) NOT NULL,
+    specialty VARCHAR(120) NOT NULL,
+    phone VARCHAR(40) NOT NULL,
+    email VARCHAR(160) NULL,
+    bank_details VARCHAR(255) NULL,
+    notes TEXT NULL
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+    id VARCHAR(40) PRIMARY KEY,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(160) NOT NULL,
+    client VARCHAR(120) NOT NULL,
+    type VARCHAR(120) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    status VARCHAR(40) NOT NULL,
+    budget DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    paid DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    address VARCHAR(255) NULL,
+    notes TEXT NULL,
+    contractors TEXT NULL
+);
+
+CREATE TABLE IF NOT EXISTS timeline_entries (
+    id VARCHAR(40) PRIMARY KEY,
+    project_id VARCHAR(40) NOT NULL,
+    entry_date DATE NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    kind VARCHAR(40) NOT NULL,
+    text TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS expenses (
+    id VARCHAR(40) PRIMARY KEY,
+    project_id VARCHAR(40) NOT NULL,
+    item VARCHAR(160) NOT NULL,
+    category VARCHAR(80) NOT NULL,
+    amount DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    expense_date DATE NOT NULL,
+    added_by VARCHAR(120) NOT NULL,
+    notes TEXT NULL
+);
+
+CREATE TABLE IF NOT EXISTS bills (
+    id VARCHAR(40) PRIMARY KEY,
+    project_id VARCHAR(40) NOT NULL,
+    contractor VARCHAR(120) NOT NULL,
+    work VARCHAR(255) NOT NULL,
+    amount DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    bill_date DATE NOT NULL,
+    due_date DATE NOT NULL,
+    status VARCHAR(40) NOT NULL,
+    paid_amount DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    paid_date DATE NULL
+);
+
+CREATE TABLE IF NOT EXISTS documents (
+    id VARCHAR(40) PRIMARY KEY,
+    project_id VARCHAR(40) NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    type VARCHAR(80) NOT NULL,
+    uploaded_by VARCHAR(120) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

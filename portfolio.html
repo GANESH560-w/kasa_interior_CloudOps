@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Kasa Interiors</title>
+    <meta name="description" content="Browse luxury living room, bedroom, kitchen, office, and bathroom interiors by Kasa Interiors.">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta property="og:title" content="Portfolio | Kasa Interiors">
+    <meta property="og:description" content="Dark luxury residential and commercial interiors by Kasa Interiors.">
+    <meta property="og:image" content="assets/img1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <script src="main.js" defer></script>
+</head>
+<body class="page page-portfolio">
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo-mark" data-nav>
+                <span class="logo-main">KASA</span>
+                <span class="logo-sub">INTERIORS</span>
+            </a>
+            <nav class="nav-desktop">
+                <a href="index.html" class="nav-link" data-nav>Home</a>
+                <a href="about.html" class="nav-link" data-nav>About</a>
+                <a href="services.html" class="nav-link" data-nav>Services</a>
+                <a href="portfolio.html" class="nav-link is-active" data-nav>Portfolio</a>
+                <a href="contact.html" class="nav-link" data-nav>Contact</a>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="nav-mobile-panel">
+            <a href="index.html" class="nav-link" data-nav>Home</a>
+            <a href="about.html" class="nav-link" data-nav>About</a>
+            <a href="services.html" class="nav-link" data-nav>Services</a>
+            <a href="portfolio.html" class="nav-link" data-nav>Portfolio</a>
+            <a href="contact.html" class="nav-link" data-nav>Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero-background">
+                <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?w=1200&q=80" alt="Luxury interior portfolio background" loading="lazy">
+                <div class="page-hero-overlay"></div>
+            </div>
+            <div class="container page-hero-content reveal">
+                <p class="eyebrow">Portfolio</p>
+                <h1>Spaces curated with atmosphere, restraint, and detail.</h1>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="eyebrow">Gallery</p>
+                    <h2>Browse interiors by room type.</h2>
+                </div>
+                <div class="filter-row reveal">
+                    <button class="filter-btn is-active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="living">Living Room</button>
+                    <button class="filter-btn" data-filter="bedroom">Bedroom</button>
+                    <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+                    <button class="filter-btn" data-filter="office">Office</button>
+                    <button class="filter-btn" data-filter="bathroom">Bathroom</button>
+                </div>
+                <div class="masonry-grid reveal" id="portfolio-grid">
+                    <figure class="masonry-item" data-category="living">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80" alt="Luxury living room interior with warm tones" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Living Room</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="bedroom">
+                        <img src="https://images.unsplash.com/photo-1616593969747-4797dc75033e?w=1200&q=80" alt="Elegant bedroom interior" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Bedroom</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="kitchen">
+                        <img src="https://images.unsplash.com/photo-1600566752227-8f3b5e0f6d80?w=1200&q=80" alt="Modern kitchen interior" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Kitchen</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="office">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80" alt="Luxury office interior with warm lighting" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Office</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="bathroom">
+                        <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1200&q=80" alt="Dark bathroom with dramatic materials" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Bathroom</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="living">
+                        <img src="https://images.unsplash.com/photo-1617104551722-3b2d513664c3?w=1200&q=80" alt="Living and dining lounge interior" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Living Room</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="bedroom">
+                        <img src="https://images.unsplash.com/photo-1615529162924-f8605388461d?w=1200&q=80" alt="Bedroom styling with layered textures" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Bedroom</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="kitchen">
+                        <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1200&q=80" alt="Luxury kitchen with premium finishes" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Kitchen</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="office">
+                        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80" alt="Home office luxury interior" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Office</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="bathroom">
+                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80" alt="Bathroom vanity interior detail" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Bathroom</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="living">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200&q=80" alt="Dark luxury lounge seating" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Living Room</span></figcaption>
+                    </figure>
+                    <figure class="masonry-item" data-category="kitchen">
+                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80" alt="Kitchen and dining interior with warm textures" loading="lazy">
+                        <figcaption class="masonry-overlay"><span class="masonry-category">Kitchen</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section video-showcase">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="eyebrow">Project Walkthroughs</p>
+                    <h2>Video-led glimpses into the Kasa Interiors experience.</h2>
+                </div>
+                <div class="video-grid reveal" id="portfolioVideoGrid"></div>
+            </div>
+        </section>
+
+        <section class="section cta-banner">
+            <div class="container cta-banner-inner reveal">
+                <div class="cta-text">
+                    <p class="eyebrow">Next Project</p>
+                    <h2>Imagine your own space in this level of finish and atmosphere.</h2>
+                    <p>Reach out to Kasa Interiors for a personalized design conversation with Aditi Parkhi.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="contact.html" class="btn btn-primary" data-nav>Discuss Your Project</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-mark" data-nav>
+                    <span class="logo-main">KASA</span>
+                    <span class="logo-sub">INTERIORS</span>
+                </a>
+                <p class="footer-tagline">Transforming spaces into timeless sanctuaries</p>
+            </div>
+            <div class="footer-contact">
+                <p class="footer-heading">Studio Address</p>
+                <p class="footer-address">KASA Interior Design Studio, Gulmohar Path,<br>Shanti Sheela Society, Deccan Gymkhana,<br>Pune, Maharashtra 411038</p>
+                <p>Phone: <a href="tel:+919096260397">+91 90962 60397</a></p>
+                <p>Email: <a href="mailto:hello@kasainteriors.in">hello@kasainteriors.in</a></p>
+                <p class="footer-hours">Hours: Mon–Sat, 10am – 7pm</p>
+                <a class="text-link" href="https://maps.app.goo.gl/CBrQezknYxY5t6wz5" target="_blank" rel="noopener">Get Directions</a>
+            </div>
+            <div class="footer-nav">
+                <p class="footer-heading">Quick Links</p>
+                <div class="footer-links">
+                    <a href="index.html" data-nav>Home</a>
+                    <a href="about.html" data-nav>About</a>
+                    <a href="services.html" data-nav>Services</a>
+                    <a href="portfolio.html" data-nav>Portfolio</a>
+                    <a href="contact.html" data-nav>Contact</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <p class="footer-heading">Social</p>
+                <div class="footer-social-links">
+                    <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener"><i data-lucide="instagram"></i></a>
+                    <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener"><i data-lucide="facebook"></i></a>
+                    <a href="https://pinterest.com" aria-label="Pinterest" target="_blank" rel="noopener"><i data-lucide="pinterest"></i></a>
+                    <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2025 Kasa Interiors. Designed by Aditi Parkhi</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers | Kasa Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body data-admin-page="customers">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" data-admin-sidebar></aside>
+        <main class="admin-main">
+            <div class="admin-topbar"><h1 class="title">Customers</h1><button class="btn alt" data-logout>Logout</button></div>
+            <section class="panel">
+                <h2 class="panel-title">Add New Customer</h2>
+                <form id="customerForm" class="form-grid-3">
+                    <input name="name" placeholder="Name" required>
+                    <input name="phone" placeholder="Phone" required>
+                    <input name="email" type="email" placeholder="Email">
+                    <input name="address" placeholder="Address">
+                    <input name="city" placeholder="City">
+                    <input name="notes" placeholder="Notes">
+                    <button class="btn" type="submit">Save Customer</button>
+                </form>
+            </section>
+            <section class="panel">
+                <div class="toolbar"><input id="customerSearch" placeholder="Search customers"></div>
+                <div class="table-wrap"><table id="customersTable"></table></div>
+                <div class="pagination" id="customersPagination"></div>
+            </section>
+            <section class="panel" id="customerDetailPanel">
+                <h2 class="panel-title">Customer Detail</h2>
+                <div id="customerDetailContent">Select a customer to view linked projects, enquiries, and payment history.</div>
+            </section>
+        </main>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+</body>
+</html>

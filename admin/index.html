@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasa Admin Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body data-admin-page="login">
+    <main class="login-screen">
+        <div class="login-card">
+            <p class="metric-label">Kasa Interiors Admin</p>
+            <h1 class="title" style="margin-bottom: 14px;">Secure Login</h1>
+            <form id="adminLoginForm">
+                <label class="metric-label" for="username">Username</label>
+                <input type="text" id="username" required>
+                <div style="height:10px;"></div>
+                <label class="metric-label" for="password">Password</label>
+                <input type="password" id="password" required>
+                <div style="height:14px;"></div>
+                <button class="btn" type="submit">Login</button>
+                <p id="loginError" class="error-text"></p>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

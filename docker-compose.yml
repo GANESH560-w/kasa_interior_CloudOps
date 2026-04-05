@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  kasa-app:
+    build: .
+    container_name: kasa-interiors-app
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads

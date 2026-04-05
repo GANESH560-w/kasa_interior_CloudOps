@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasa Interiors | Where Luxury Meets Living</title>
+    <meta name="description" content="Kasa Interiors by Aditi Parkhi creates premium residential, commercial, turnkey, and visualization-led interior spaces in Pune, Maharashtra.">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta property="og:title" content="Kasa Interiors | Luxury Interior Design">
+    <meta property="og:description" content="Premium interior design by Aditi Parkhi in Pune.">
+    <meta property="og:image" content="assets/img1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <script src="main.js" defer></script>
+</head>
+<body class="page page-home">
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo-mark" data-nav>
+                <span class="logo-main">KASA</span>
+                <span class="logo-sub">INTERIORS</span>
+            </a>
+            <nav class="nav-desktop">
+                <a href="index.html" class="nav-link is-active" data-nav>Home</a>
+                <a href="about.html" class="nav-link" data-nav>About</a>
+                <a href="services.html" class="nav-link" data-nav>Services</a>
+                <a href="portfolio.html" class="nav-link" data-nav>Portfolio</a>
+                <a href="contact.html" class="nav-link" data-nav>Contact</a>
+            </nav>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="nav-mobile-panel">
+            <a href="index.html" class="nav-link" data-nav>Home</a>
+            <a href="about.html" class="nav-link" data-nav>About</a>
+            <a href="services.html" class="nav-link" data-nav>Services</a>
+            <a href="portfolio.html" class="nav-link" data-nav>Portfolio</a>
+            <a href="contact.html" class="nav-link" data-nav>Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero hero-video-section">
+            <video class="hero-video kasa-video" autoplay loop playsinline preload="metadata" poster="assets/img1.png" data-video-id="home-hero">
+                <source src="assets/hero.mp4" type="video/mp4">
+            </video>
+            <button class="sound-toggle" data-target-video="home-hero" aria-label="Toggle sound">🔊</button>
+            <div class="sound-enable-banner hidden" id="soundEnableBanner">Click to Enable Sound</div>
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <div class="hero-text reveal">
+                    <p class="eyebrow">PREMIUM INTERIOR DESIGN BY ADITI PARKHI</p>
+                    <h1>Where Luxury Meets Living.</h1>
+                    <p class="hero-subtitle">Kasa Interiors crafts refined residences, expressive commercial spaces, turnkey construction experiences, and immersive visualizations that balance elegance, comfort, and execution certainty.</p>
+                    <div class="hero-actions">
+                        <a href="portfolio.html" class="btn btn-primary" data-nav>View Our Work</a>
+                        <a href="contact.html" class="btn btn-outline" data-nav>Free Consultation</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-scroll">
+                <span class="scroll-line"></span>
+                <span class="scroll-label">Scroll</span>
+            </div>
+        </section>
+
+        <section class="stats-strip reveal">
+            <div class="container stats-grid">
+                <div class="stat">
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">12+</span>
+                    <span class="stat-label">Years</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Satisfaction</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Awards</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container split">
+                <div class="split-media reveal">
+                    <div class="image-frame">
+                        <div class="image-frame-offset"></div>
+                        <img src="assets/kasa-owner-img.jpg" alt="Owner Aditi Parkhi of Kasa Interiors" loading="lazy">
+                    </div>
+                </div>
+                <div class="split-content reveal">
+                    <p class="eyebrow">Owner & Creative Lead</p>
+                    <h2>Aditi Parkhi brings luxury design into daily living.</h2>
+                    <p>Aditi Parkhi leads Kasa Interiors with a strong design eye and execution-first discipline. Her studio approach is rooted in thoughtful planning, tactile materials, elegant detailing, and interiors that feel cinematic without ever losing comfort.</p>
+                    <p>From first consultation to final styling, every decision is shaped to deliver clarity, warmth, and timelessness for modern homes and businesses in Pune and beyond.</p>
+                    <a href="about.html" class="text-link" data-nav>Discover the studio</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="eyebrow">Services</p>
+                    <h2>Thoughtful spaces, from concept to completion.</h2>
+                </div>
+                <div class="cards-grid reveal">
+                    <article class="service-card reveal-stagger">
+                        <div class="card-icon"><i data-lucide="sofa"></i></div>
+                        <h3>Residential</h3>
+                        <p>Luxury-led home design with layered materials, calm proportions, tailored lighting, and lived-in elegance.</p>
+                    </article>
+                    <article class="service-card reveal-stagger">
+                        <div class="card-icon"><i data-lucide="building-2"></i></div>
+                        <h3>Commercial</h3>
+                        <p>Workplaces, studios, and branded spaces designed to feel immersive, efficient, and identity-driven.</p>
+                    </article>
+                    <article class="service-card reveal-stagger">
+                        <div class="card-icon"><i data-lucide="hammer"></i></div>
+                        <h3>Turnkey Construction</h3>
+                        <p>Coordinated execution covering civil, carpentry, finishes, lighting, and handover under one studio vision.</p>
+                    </article>
+                    <article class="service-card reveal-stagger">
+                        <div class="card-icon"><i data-lucide="box"></i></div>
+                        <h3>3D Visualization</h3>
+                        <p>Immersive visual previews that help clients understand mood, scale, materiality, and final atmosphere before build.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="eyebrow">Portfolio Teaser</p>
+                    <h2>Luxury interiors shaped with drama and restraint.</h2>
+                </div>
+                <div class="portfolio-highlight-grid reveal">
+                    <figure class="portfolio-highlight featured reveal-stagger">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80" alt="Luxury living room interior" loading="lazy">
+                    </figure>
+                    <figure class="portfolio-highlight reveal-stagger">
+                        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80" alt="Luxury bedroom interior" loading="lazy">
+                    </figure>
+                    <figure class="portfolio-highlight reveal-stagger">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80" alt="Premium kitchen interior" loading="lazy">
+                    </figure>
+                    <figure class="portfolio-highlight reveal-stagger">
+                        <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&q=80" alt="Luxury office interior" loading="lazy">
+                    </figure>
+                    <figure class="portfolio-highlight reveal-stagger">
+                        <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=1200&q=80" alt="Dark bathroom interior" loading="lazy">
+                    </figure>
+                    <figure class="portfolio-highlight reveal-stagger">
+                        <img src="https://images.unsplash.com/photo-1617104551722-3b2d513664c3?w=1200&q=80" alt="Luxury dining and lounge space" loading="lazy">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="section testimonials-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="eyebrow">Testimonials</p>
+                    <h2>Experiences that speak to process and finish.</h2>
+                </div>
+                <div class="testimonials-wrapper reveal">
+                    <div class="testimonial-slider">
+                        <article class="testimonial is-active">
+                            <p class="testimonial-quote">Kasa Interiors transformed our apartment into a home that feels luxurious, personal, and effortless every single day.</p>
+                            <p class="testimonial-name">Rohan Kulkarni</p>
+                            <p class="testimonial-meta">Residential Client, Pune</p>
+                        </article>
+                        <article class="testimonial">
+                            <p class="testimonial-quote">The planning was sharp, the execution was disciplined, and the finished studio now reflects our brand exactly the way we hoped.</p>
+                            <p class="testimonial-name">Nikita Shah</p>
+                            <p class="testimonial-meta">Commercial Client, Pune</p>
+                        </article>
+                        <article class="testimonial">
+                            <p class="testimonial-quote">Aditi Parkhi and her team handled everything with grace and precision, from design ideas to the final handover.</p>
+                            <p class="testimonial-name">Amit Deshpande</p>
+                            <p class="testimonial-meta">Turnkey Client, Pune</p>
+                        </article>
+                    </div>
+                    <div class="testimonial-dots">
+                        <button class="dot is-active" data-index="0" aria-label="Go to testimonial 1"></button>
+                        <button class="dot" data-index="1" aria-label="Go to testimonial 2"></button>
+                        <button class="dot" data-index="2" aria-label="Go to testimonial 3"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-banner">
+            <div class="container cta-banner-inner reveal">
+                <div class="cta-text">
+                    <p class="eyebrow">Consultation</p>
+                    <h2>Ready to shape a home or workspace with intention?</h2>
+                    <p>Connect with Kasa Interiors for a design conversation led by Aditi Parkhi and tailored to your lifestyle, budget, and project goals.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="contact.html" class="btn btn-primary" data-nav>Free Consultation</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-mark" data-nav>
+                    <span class="logo-main">KASA</span>
+                    <span class="logo-sub">INTERIORS</span>
+                </a>
+                <p class="footer-tagline">Transforming spaces into timeless sanctuaries</p>
+            </div>
+            <div class="footer-contact">
+                <p class="footer-heading">Studio Address</p>
+                <p class="footer-address">KASA Interior Design Studio, Gulmohar Path,<br>Shanti Sheela Society, Deccan Gymkhana,<br>Pune, Maharashtra 411038</p>
+                <p>Phone: <a href="tel:+919096260397">+91 90962 60397</a></p>
+                <p>Email: <a href="mailto:hello@kasainteriors.in">hello@kasainteriors.in</a></p>
+                <p class="footer-hours">Hours: Mon–Sat, 10am – 7pm</p>
+                <a class="text-link" href="https://maps.app.goo.gl/CBrQezknYxY5t6wz5" target="_blank" rel="noopener">Get Directions</a>
+            </div>
+            <div class="footer-nav">
+                <p class="footer-heading">Quick Links</p>
+                <div class="footer-links">
+                    <a href="index.html" data-nav>Home</a>
+                    <a href="about.html" data-nav>About</a>
+                    <a href="services.html" data-nav>Services</a>
+                    <a href="portfolio.html" data-nav>Portfolio</a>
+                    <a href="contact.html" data-nav>Contact</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <p class="footer-heading">Social</p>
+                <div class="footer-social-links">
+                    <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener"><i data-lucide="instagram"></i></a>
+                    <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener"><i data-lucide="facebook"></i></a>
+                    <a href="https://pinterest.com" aria-label="Pinterest" target="_blank" rel="noopener"><i data-lucide="pinterest"></i></a>
+                    <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2025 Kasa Interiors. Designed by Aditi Parkhi</p>
+        </div>
+    </footer>
+</body>
+</html>

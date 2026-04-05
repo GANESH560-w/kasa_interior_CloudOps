@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Kasa Interiors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body data-admin-page="dashboard">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" data-admin-sidebar></aside>
+        <main class="admin-main">
+            <div class="admin-topbar"><h1 class="title">Dashboard</h1><button class="btn alt" data-logout>Logout</button></div>
+            <section class="grid-4" id="metricCards"></section>
+            <section class="panel"><h2 class="panel-title">Recent Enquiries</h2><div class="table-wrap"><table id="dashboardEnquiriesTable"></table></div></section>
+            <section class="panel"><h2 class="panel-title">Active Projects</h2><div id="dashboardProjects"></div></section>
+            <section class="panel"><h2 class="panel-title">Recent Contractor Bills</h2><div class="table-wrap"><table id="dashboardBillsTable"></table></div></section>
+            <section class="panel"><h2 class="panel-title">Quick Stats</h2><div id="dashboardQuickStats"></div></section>
+        </main>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+</body>
+</html>

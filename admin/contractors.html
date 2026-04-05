@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contractors | Kasa Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body data-admin-page="contractors">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" data-admin-sidebar></aside>
+        <main class="admin-main">
+            <div class="admin-topbar"><h1 class="title">Contractors</h1><button class="btn alt" data-logout>Logout</button></div>
+            <section class="panel">
+                <h2 class="panel-title">Add Contractor</h2>
+                <form id="contractorForm" class="form-grid-3">
+                    <input name="name" placeholder="Name" required>
+                    <select name="specialty"><option>Electrical</option><option>Plumbing</option><option>Carpentry</option><option>Painting</option><option>Civil</option><option>Other</option></select>
+                    <input name="phone" placeholder="Phone" required>
+                    <input name="email" type="email" placeholder="Email">
+                    <input name="bank" placeholder="Bank Details">
+                    <input name="notes" placeholder="Notes">
+                    <button class="btn" type="submit">Save Contractor</button>
+                </form>
+            </section>
+            <section class="panel">
+                <div class="toolbar"><input id="contractorSearch" placeholder="Search contractors"></div>
+                <div class="table-wrap"><table id="contractorsTable"></table></div>
+                <div class="pagination" id="contractorsPagination"></div>
+            </section>
+            <section class="panel" id="contractorDetailPanel">
+                <h2 class="panel-title">Contractor Detail</h2>
+                <div id="contractorDetailContent">Select a contractor to view bill history and payment details.</div>
+            </section>
+        </main>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail | Kasa Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body data-admin-page="project-detail">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" data-admin-sidebar></aside>
+        <main class="admin-main">
+            <div class="admin-topbar"><h1 class="title" id="projectDetailTitle">Project Detail</h1><button class="btn alt" data-logout>Logout</button></div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="timeline">Timeline / History</button>
+                <button class="tab-btn" data-tab="cost">Cost Tracker</button>
+                <button class="tab-btn" data-tab="bills">Contractor Bills</button>
+                <button class="tab-btn" data-tab="documents">Documents</button>
+                <button class="tab-btn" data-tab="customer">Customer Info</button>
+            </div>
+
+            <section class="panel tab-pane active" id="tab-timeline">
+                <h2 class="panel-title">Add Update</h2>
+                <form id="timelineForm" class="form-grid">
+                    <input name="date" type="date" required>
+                    <select name="kind"><option>Milestone</option><option>Note</option><option>Issue</option><option>Payment</option></select>
+                    <textarea name="text" placeholder="Update description" required></textarea>
+                    <button class="btn" type="submit">Add Update</button>
+                </form>
+                <div class="table-wrap"><table id="timelineTable"></table></div>
+            </section>
+
+            <section class="panel tab-pane" id="tab-cost">
+                <h2 class="panel-title">Budget vs Spent</h2>
+                <div id="costSummary"></div>
+                <form id="expenseForm" class="form-grid-3">
+                    <input name="item" placeholder="Item Name" required>
+                    <select name="category"><option>Materials</option><option>Labour</option><option>Contractor</option><option>Transport</option><option>Miscellaneous</option></select>
+                    <input name="amount" type="number" placeholder="Amount ₹" required>
+                    <input name="date" type="date" required>
+                    <input name="by" placeholder="Added By" required>
+                    <input name="notes" placeholder="Notes">
+                    <button class="btn" type="submit">Add Expense</button>
+                </form>
+                <div class="table-wrap"><table id="expenseTable"></table></div>
+            </section>
+
+            <section class="panel tab-pane" id="tab-bills">
+                <h2 class="panel-title">Contractor Bills</h2>
+                <div id="billsSummary"></div>
+                <form id="billForm" class="form-grid-3">
+                    <input name="contractor" placeholder="Contractor" required>
+                    <input name="work" placeholder="Work Done" required>
+                    <input name="amount" type="number" placeholder="Bill Amount ₹" required>
+                    <input name="date" type="date" required>
+                    <input name="dueDate" type="date" required>
+                    <select name="status"><option>Pending</option><option>Paid</option><option>Partial</option><option>Overdue</option></select>
+                    <button class="btn" type="submit">Add Bill</button>
+                </form>
+                <div class="table-wrap"><table id="billTable"></table></div>
+            </section>
+
+            <section class="panel tab-pane" id="tab-documents">
+                <h2 class="panel-title">Documents</h2>
+                <form id="documentForm" class="form-grid-3">
+                    <input name="fileUpload" type="file" required>
+                    <select name="type"><option>Quotation</option><option>Contract</option><option>Site Photo</option><option>Invoice</option><option>Other</option></select>
+                    <input name="by" placeholder="Uploaded by" required>
+                    <button class="btn" type="submit">Add Document</button>
+                </form>
+                <div class="table-wrap"><table id="documentsTable"></table></div>
+            </section>
+
+            <section class="panel tab-pane" id="tab-customer">
+                <h2 class="panel-title">Customer Info</h2>
+                <div id="customerInfo"></div>
+            </section>
+        </main>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+</body>
+</html>

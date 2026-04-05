@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Kasa Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-style.css">
+    <script src="admin.js" defer></script>
+</head>
+<body data-admin-page="projects">
+    <div class="admin-shell">
+        <aside class="admin-sidebar" data-admin-sidebar></aside>
+        <main class="admin-main">
+            <div class="admin-topbar"><h1 class="title">Projects</h1><button class="btn alt" data-logout>Logout</button></div>
+            <div class="toolbar">
+                <input id="projectSearch" placeholder="Search by project or client">
+                <select id="projectStatusFilter"><option value="">All Status</option><option>Planning</option><option>In Progress</option><option>On Hold</option><option>Completed</option></select>
+                <select id="projectClientFilter"><option value="">All Clients</option></select>
+                <input id="projectStartFilter" type="date" aria-label="Project start date filter">
+                <input id="projectEndFilter" type="date" aria-label="Project end date filter">
+            </div>
+            <section class="panel">
+                <h2 class="panel-title">Add New Project</h2>
+                <form id="projectForm" class="form-grid-3">
+                    <input name="name" placeholder="Project Name" required>
+                    <select name="client" id="projectClientInput" required><option value="">Select Client</option></select>
+                    <input name="type" placeholder="Type" required>
+                    <input name="startDate" type="date" required>
+                    <input name="endDate" type="date" required>
+                    <select name="status"><option>Planning</option><option>In Progress</option><option>On Hold</option><option>Completed</option></select>
+                    <input name="budget" placeholder="Total Budget (₹)" type="number" required>
+                    <input name="address" placeholder="Project Address">
+                    <input name="contractors" placeholder="Assign Contractors (comma separated)">
+                    <textarea name="notes" placeholder="Notes"></textarea>
+                    <button class="btn" type="submit">Save Project</button>
+                </form>
+            </section>
+            <section class="panel">
+                <div class="table-wrap"><table id="projectsTable"></table></div>
+                <div class="pagination" id="projectsPagination"></div>
+            </section>
+        </main>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+</body>
+</html>
