@@ -1,125 +1,130 @@
-<<<<<<< HEAD
-# Kasa Interiors AWS Deployment Guide
+# Kasa Interiors Cloud Deployment Guide
 
-This project now includes:
+This README explains exactly how to run the full Kasa Interiors project on AWS Cloud, including:
 
-- a Node.js + Express backend
-- a MySQL-compatible database setup for AWS RDS
-- API-driven admin login, enquiries, customers, contractors, projects, billing, expenses, documents, and reports
-- a Docker setup for EC2 deployment
+- public website
+- admin panel
+- backend API
+- Amazon RDS MySQL database
+- Amazon EC2 hosting
+- Docker deployment
+- Nginx reverse proxy
+- HTTPS setup
 
-## Project Structure
-
-```text
-.
-├── admin/              # Admin UI
-├── assets/             # Website images/videos
-├── database/schema.sql # MySQL schema
-├── server/             # Express backend
-├── uploads/            # Project document uploads
-├── Dockerfile
-├── docker-compose.yml
-├── package.json
-└── .env.example
-```
-
-## Tech Stack
+## What This Project Uses
 
 - Frontend: HTML, CSS, JavaScript
-- Backend: Node.js, Express
-- Database: MySQL / Amazon RDS for MySQL
+- Backend: Node.js + Express
+- Database: MySQL on Amazon RDS
 - Hosting: Amazon EC2
-- Containerization: Docker
+- Container runtime: Docker
+- Reverse proxy: Nginx
 
-## 1. Local Development Setup
+## Project Files
 
-### Install Node.js dependencies
-
-```powershell
-npm install
+```text
+admin/                  Admin panel pages and script
+assets/                 Website assets
+database/schema.sql     Database tables
+server/app.js           Express backend
+server/db.js            MySQL connection
+uploads/                Uploaded project documents
+Dockerfile              App container image
+docker-compose.yml      Container startup config
+.env.example            Environment template
+README.md               AWS deployment guide
+COMMANDS.md             Quick command reference
 ```
 
-### Create your environment file
+## Final Result After Deployment
 
-```powershell
-Copy-Item .env.example .env
+After following this guide:
+
+- website opens at `http://YOUR_DOMAIN_OR_EC2_IP/`
+- admin login opens at `http://YOUR_DOMAIN_OR_EC2_IP/admin/index.html`
+- backend runs inside Docker on EC2
+- data is stored in Amazon RDS MySQL
+
+## AWS Architecture
+
+```text
+Browser
+   |
+   v
+Nginx on EC2
+   |
+   v
+Docker Container (Node.js + Express)
+   |
+   v
+Amazon RDS MySQL
 ```
 
-Update `.env` with your values:
+## Step 1: Get the Code on EC2
 
-```env
-PORT=3000
-DB_HOST=your-rds-endpoint.amazonaws.com
-DB_PORT=3306
-DB_NAME=kasa_interiors
-DB_USER=admin
-DB_PASSWORD=change-me
-JWT_SECRET=change-this-secret
-ADMIN_USERNAME=kasaadmin
-ADMIN_PASSWORD=kasa@2025
-ADMIN_NAME=Kasa Admin
+Your GitHub repo is:
+
+[https://github.com/GANESH560-w/kasa_interior_CloudOps.git](https://github.com/GANESH560-w/kasa_interior_CloudOps.git)
+
+On EC2:
+
+```bash
+git clone https://github.com/GANESH560-w/kasa_interior_CloudOps.git
+cd kasa_interior_CloudOps
 ```
 
-### Start the app locally
+## Step 2: Create Amazon RDS MySQL Database
 
-```powershell
-npm start
-```
-
-Open:
-
-- Public site: `http://localhost:3000`
-- Admin login: `http://localhost:3000/admin/index.html`
-
-## 2. Create AWS RDS MySQL Database
-
-### In AWS Console
+In AWS Console:
 
 1. Open `RDS`
 2. Click `Create database`
-3. Choose `MySQL`
-4. Set database name: `kasa_interiors`
-5. Create master username and password
-6. Allow access from your EC2 security group on port `3306`
+3. Choose `Standard create`
+4. Choose `MySQL`
+5. DB identifier: `kasa-interiors-db`
+6. Master username: `admin`
+7. Set your password
+8. Initial database name: `kasa_interiors`
+9. Put RDS in the same VPC as EC2
+10. Allow access from EC2 security group only on port `3306`
+11. Create database
 
-### Create database and import schema
+RDS security group inbound rule:
 
-From your EC2 server or your local machine:
+- Type: `MySQL/Aurora`
+- Port: `3306`
+- Source: your EC2 security group
 
-```bash
-mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p -e "CREATE DATABASE IF NOT EXISTS kasa_interiors;"
-mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p kasa_interiors < database/schema.sql
-```
+## Step 3: Create EC2 Instance
 
-The app will also create tables automatically on startup if the database already exists.
+Recommended settings:
 
-## 3. Launch EC2 Instance
+- Ubuntu 22.04 LTS
+- Instance type `t3.small` or higher
+- 20 GB storage
+- Attach key pair
+- Attach security group with:
+  - SSH `22` from your IP
+  - HTTP `80` from anywhere
+  - HTTPS `443` from anywhere
 
-Recommended:
-
-- OS: Ubuntu 22.04 LTS
-- Instance type: `t3.small` or higher
-- Storage: at least `20 GB`
-
-### EC2 security group
-
-Allow:
-
-- `22` from your IP for SSH
-- `80` from anywhere for HTTP
-- `443` from anywhere for HTTPS
-
-## 4. Connect to EC2
+## Step 4: Connect to EC2
 
 ```bash
 ssh -i your-key.pem ubuntu@YOUR_EC2_PUBLIC_IP
 ```
 
-## 5. Install Docker on EC2
+Example:
+
+```bash
+ssh -i kasa-key.pem ubuntu@13.233.100.10
+```
+
+## Step 5: Install Required Software on EC2
 
 ```bash
 sudo apt update
-sudo apt install -y docker.io docker-compose-v2
+sudo apt install -y git curl docker.io docker-compose-v2 mysql-client nginx
 sudo systemctl enable docker
 sudo systemctl start docker
 sudo usermod -aG docker $USER
@@ -131,30 +136,41 @@ Verify:
 ```bash
 docker --version
 docker compose version
+git --version
+mysql --version
+nginx -v
 ```
 
-## 6. Upload Project to EC2
+## Step 6: Create the Database and Tables
 
-From your local machine:
+Use your RDS endpoint.
+
+Create database:
 
 ```bash
-scp -i your-key.pem -r "Website Kasa interiors" ubuntu@YOUR_EC2_PUBLIC_IP:/home/ubuntu/
+mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p -e "CREATE DATABASE IF NOT EXISTS kasa_interiors;"
 ```
 
-On EC2:
+Import schema:
 
 ```bash
-cd /home/ubuntu/"Website Kasa interiors"
+mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p kasa_interiors < database/schema.sql
 ```
 
-## 7. Configure Environment on EC2
+Check tables:
+
+```bash
+mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p -e "USE kasa_interiors; SHOW TABLES;"
+```
+
+## Step 7: Create `.env` File on EC2
 
 ```bash
 cp .env.example .env
 nano .env
 ```
 
-Example EC2 `.env`:
+Paste and update:
 
 ```env
 PORT=3000
@@ -169,52 +185,60 @@ ADMIN_PASSWORD=kasa@2025
 ADMIN_NAME=Kasa Admin
 ```
 
-## 8. Run with Docker on EC2
+Important:
 
-### Build and start
+- `DB_HOST` must be your RDS endpoint
+- `DB_PASSWORD` must be your RDS password
+- `JWT_SECRET` should be long and secret
+- `ADMIN_USERNAME` and `ADMIN_PASSWORD` are for admin login
+
+## Step 8: Run the Project with Docker
+
+From project folder on EC2:
 
 ```bash
 docker compose up -d --build
 ```
 
-### Check logs
+Check if container is running:
+
+```bash
+docker ps
+```
+
+Check logs:
 
 ```bash
 docker compose logs -f
 ```
 
-### Stop containers
+Check health API:
 
 ```bash
-docker compose down
+curl http://127.0.0.1:3000/api/health
 ```
 
-## 9. Optional Direct Docker Commands
+Expected response:
 
-### Build image
-
-```bash
-docker build -t kasa-interiors-app .
+```json
+{"status":"ok"}
 ```
 
-### Run container
+## Step 9: Test Website and Admin Panel on Port 3000
 
-```bash
-docker run -d \
-  --name kasa-interiors-app \
-  --env-file .env \
-  -p 3000:3000 \
-  -v $(pwd)/uploads:/app/uploads \
-  kasa-interiors-app
+Open these in browser:
+
+```text
+http://YOUR_EC2_PUBLIC_IP:3000/
+http://YOUR_EC2_PUBLIC_IP:3000/admin/index.html
 ```
 
-## 10. Reverse Proxy with Nginx on EC2
+Admin credentials come from `.env`:
 
-Install Nginx:
+- username: `ADMIN_USERNAME`
+- password: `ADMIN_PASSWORD`
 
-```bash
-sudo apt install -y nginx
-```
+## Step 10: Configure Nginx Reverse Proxy
 
 Create config:
 
@@ -222,16 +246,18 @@ Create config:
 sudo nano /etc/nginx/sites-available/kasa-interiors
 ```
 
-Use:
+Paste:
 
 ```nginx
 server {
     listen 80;
-    server_name YOUR_DOMAIN_OR_IP;
+    server_name YOUR_DOMAIN_OR_EC2_IP;
 
     location / {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -240,7 +266,7 @@ server {
 }
 ```
 
-Enable config:
+Enable it:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/kasa-interiors /etc/nginx/sites-enabled/
@@ -248,100 +274,242 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-## 11. Enable HTTPS with Certbot
+Now open:
+
+```text
+http://YOUR_EC2_PUBLIC_IP/
+http://YOUR_EC2_PUBLIC_IP/admin/index.html
+```
+
+## Step 11: Add Domain Name Optional
+
+If you have a domain:
+
+1. Add `A` record to your EC2 public IP
+2. Update Nginx `server_name`
+3. Restart Nginx
+
+Example DNS:
+
+```text
+Type: A
+Host: @
+Value: YOUR_EC2_PUBLIC_IP
+```
+
+```text
+Type: A
+Host: www
+Value: YOUR_EC2_PUBLIC_IP
+```
+
+Then update Nginx:
+
+```bash
+sudo nano /etc/nginx/sites-available/kasa-interiors
+```
+
+Use:
+
+```nginx
+server_name yourdomain.com www.yourdomain.com;
+```
+
+Restart:
+
+```bash
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+## Step 12: Enable HTTPS with SSL
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+sudo certbot renew --dry-run
 ```
 
-## 12. Common Deployment Workflow
+## Step 13: How to Update the Project Later
 
-When you update the code:
+Whenever you push new code to GitHub:
+
+On local machine:
 
 ```bash
-cd /home/ubuntu/"Website Kasa interiors"
+git add .
+git commit -m "Update project"
+git push origin main
+```
+
+On EC2:
+
+```bash
+cd ~/kasa_interior_CloudOps
+git pull origin main
 docker compose down
 docker compose up -d --build
 docker compose logs -f
 ```
 
-## 13. Useful Commands
+## Step 14: Useful Runtime Commands
 
-### Check running containers
+Check running containers:
 
 ```bash
 docker ps
 ```
 
-### Restart app
-
-```bash
-docker compose restart
-```
-
-### View app logs
+Check app logs:
 
 ```bash
 docker compose logs -f kasa-app
 ```
 
-### Enter container shell
+Enter container:
 
 ```bash
 docker exec -it kasa-interiors-app sh
 ```
 
-### Test database connection from EC2
+Restart app:
+
+```bash
+docker compose restart
+```
+
+Stop app:
+
+```bash
+docker compose down
+```
+
+## Step 15: Useful Database Commands
+
+Connect to RDS:
 
 ```bash
 mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p kasa_interiors
 ```
 
-## 14. Admin Login
+Inside MySQL:
 
-Default admin credentials come from `.env`:
-
-- Username: `ADMIN_USERNAME`
-- Password: `ADMIN_PASSWORD`
-
-The backend creates the first admin user automatically on startup if the `admins` table is empty.
-
-## 15. API Features Added
-
-- Public enquiry submission from `contact.html`
-- Secure admin login using JWT
-- Dashboard bootstrap API
-- Enquiry status update and delete
-- Customer create and delete
-- Contractor create and delete
-- Project create and delete
-- Timeline updates
-- Expense tracking
-- Contractor bills and payment tracking
-- Project document uploads
-
-## 16. Notes for AWS
-
-- RDS should usually be private; allow access only from the EC2 security group
-- Uploaded documents are stored in `uploads/`
-- For stronger production durability, you can later move uploads to Amazon S3
-- Keep `JWT_SECRET` long and private
-- Do not commit `.env`
-
-## 17. Quick Start Summary
-
-```bash
-npm install
-cp .env.example .env
-npm start
+```sql
+SHOW TABLES;
+SELECT * FROM admins;
+SELECT * FROM enquiries;
+SELECT * FROM customers;
+SELECT * FROM contractors;
+SELECT * FROM projects;
+SELECT * FROM bills;
+SELECT * FROM expenses;
+SELECT * FROM documents;
 ```
 
-For EC2:
+## Step 16: Full Quick Deployment Commands
+
+If EC2 is created and RDS is ready, run these in order:
 
 ```bash
+ssh -i your-key.pem ubuntu@YOUR_EC2_PUBLIC_IP
+sudo apt update
+sudo apt install -y git curl docker.io docker-compose-v2 mysql-client nginx
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+newgrp docker
+git clone https://github.com/GANESH560-w/kasa_interior_CloudOps.git
+cd kasa_interior_CloudOps
+mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p -e "CREATE DATABASE IF NOT EXISTS kasa_interiors;"
+mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p kasa_interiors < database/schema.sql
+cp .env.example .env
+nano .env
+docker compose up -d --build
+curl http://127.0.0.1:3000/api/health
+sudo nano /etc/nginx/sites-available/kasa-interiors
+sudo ln -s /etc/nginx/sites-available/kasa-interiors /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+## Step 17: URLs After Deployment
+
+Website:
+
+```text
+http://YOUR_DOMAIN_OR_EC2_IP/
+```
+
+Admin panel:
+
+```text
+http://YOUR_DOMAIN_OR_EC2_IP/admin/index.html
+```
+
+## Step 18: Troubleshooting
+
+### If container does not start
+
+```bash
+docker compose logs -f
+```
+
+### If database connection fails
+
+Check:
+
+- RDS endpoint is correct
+- RDS password is correct
+- port `3306` is allowed from EC2 security group
+- EC2 and RDS are in correct VPC/network
+
+Test DB manually:
+
+```bash
+mysql -h YOUR_RDS_ENDPOINT -P 3306 -u admin -p kasa_interiors
+```
+
+### If website works but admin login fails
+
+Check:
+
+- `ADMIN_USERNAME` and `ADMIN_PASSWORD` in `.env`
+- container restarted after env update
+- app logs
+
+Restart app:
+
+```bash
+docker compose down
 docker compose up -d --build
 ```
-=======
-# kasa_interior_CloudOps
->>>>>>> 32cd0c67f8e14f0f7e113b5d6363d64d087694a3
+
+### If Nginx shows 502
+
+Run:
+
+```bash
+docker ps
+curl http://127.0.0.1:3000/api/health
+sudo systemctl status nginx
+```
+
+## Step 19: Final Verification Checklist
+
+After deployment, confirm:
+
+1. `docker ps` shows the app container running
+2. `curl http://127.0.0.1:3000/api/health` returns success
+3. public website opens in browser
+4. admin panel opens in browser
+5. admin login works
+6. contact form creates enquiry data
+7. admin panel shows enquiry in dashboard
+
+## Step 20: Important Notes
+
+- Do not commit your real `.env`
+- Keep `JWT_SECRET` private
+- Keep RDS private if possible
+- Uploaded files are stored in `uploads/` on EC2
+- For bigger production setup, you can later move uploads to S3
