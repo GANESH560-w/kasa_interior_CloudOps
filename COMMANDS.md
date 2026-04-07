@@ -29,6 +29,8 @@ docker compose logs -f
 docker compose down
 ```
 
+Use `docker compose`, not `docker-compose`.
+
 ## 4. Docker direct commands
 
 ```bash
@@ -79,7 +81,7 @@ newgrp docker
 ```bash
 git status
 git add .
-git commit -m "Add backend, Docker, AWS deployment docs, and command reference"
+git commit -m "Connect public site and admin, add RDS SSL support, and improve AWS docs"
 git push origin main
 ```
 
@@ -87,7 +89,7 @@ git push origin main
 
 ```text
 http://localhost:3000
-http://localhost:3000/admin/index.html
+http://localhost:3000/admin
 ```
 
 ## 10. Required .env values
@@ -99,6 +101,8 @@ DB_PORT=3306
 DB_NAME=kasa_interiors
 DB_USER=admin
 DB_PASSWORD=change-me
+DB_SSL=true
+DB_SSL_REJECT_UNAUTHORIZED=false
 JWT_SECRET=change-this-secret
 ADMIN_USERNAME=kasaadmin
 ADMIN_PASSWORD=kasa@2025

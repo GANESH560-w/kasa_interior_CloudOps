@@ -668,6 +668,10 @@ app.use((err, _req, res, _next) => {
     res.status(500).json({ message: "Server error", detail: err.message });
 });
 
+app.get(["/admin", "/admin/"], (_req, res) => {
+    res.redirect("/admin/index.html");
+});
+
 app.get("*", (req, res, next) => {
     if (req.path.startsWith("/api/")) {
         return next();

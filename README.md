@@ -41,7 +41,7 @@ COMMANDS.md             Quick command reference
 After following this guide:
 
 - website opens at `http://YOUR_DOMAIN_OR_EC2_IP/`
-- admin login opens at `http://YOUR_DOMAIN_OR_EC2_IP/admin/index.html`
+- admin login opens at `http://YOUR_DOMAIN_OR_EC2_IP/admin`
 - backend runs inside Docker on EC2
 - data is stored in Amazon RDS MySQL
 
@@ -141,6 +141,11 @@ mysql --version
 nginx -v
 ```
 
+Important:
+
+- Use `docker compose`, not `docker-compose`
+- Do not install the old `docker-compose` package on Ubuntu, it can fail with newer Docker versions
+
 ## Step 6: Create the Database and Tables
 
 Use your RDS endpoint.
@@ -179,6 +184,8 @@ DB_PORT=3306
 DB_NAME=kasa_interiors
 DB_USER=admin
 DB_PASSWORD=your-rds-password
+DB_SSL=true
+DB_SSL_REJECT_UNAUTHORIZED=false
 JWT_SECRET=replace-with-a-long-random-secret
 ADMIN_USERNAME=kasaadmin
 ADMIN_PASSWORD=kasa@2025
@@ -189,6 +196,8 @@ Important:
 
 - `DB_HOST` must be your RDS endpoint
 - `DB_PASSWORD` must be your RDS password
+- `DB_SSL=true` is required if your RDS has secure transport enabled
+- `DB_SSL_REJECT_UNAUTHORIZED=false` is the simple setup option for Amazon RDS in this project
 - `JWT_SECRET` should be long and secret
 - `ADMIN_USERNAME` and `ADMIN_PASSWORD` are for admin login
 
@@ -212,6 +221,8 @@ Check logs:
 docker compose logs -f
 ```
 
+Press `Ctrl + C` to stop live log streaming. This does not stop the container.
+
 Check health API:
 
 ```bash
@@ -230,7 +241,7 @@ Open these in browser:
 
 ```text
 http://YOUR_EC2_PUBLIC_IP:3000/
-http://YOUR_EC2_PUBLIC_IP:3000/admin/index.html
+http://YOUR_EC2_PUBLIC_IP:3000/admin
 ```
 
 Admin credentials come from `.env`:
@@ -240,24 +251,24 @@ Admin credentials come from `.env`:
 
 ## Step 10: Configure Nginx Reverse Proxy
 
-Create config:
+Replace the default Nginx site:
 
 ```bash
-sudo nano /etc/nginx/sites-available/kasa-interiors
+sudo nano /etc/nginx/sites-available/default
 ```
 
 Paste:
 
 ```nginx
 server {
-    listen 80;
-    server_name YOUR_DOMAIN_OR_EC2_IP;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    server_name _;
 
     location / {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -269,7 +280,6 @@ server {
 Enable it:
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/kasa-interiors /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
@@ -278,7 +288,7 @@ Now open:
 
 ```text
 http://YOUR_EC2_PUBLIC_IP/
-http://YOUR_EC2_PUBLIC_IP/admin/index.html
+http://YOUR_EC2_PUBLIC_IP/admin
 ```
 
 ## Step 11: Add Domain Name Optional
@@ -306,7 +316,7 @@ Value: YOUR_EC2_PUBLIC_IP
 Then update Nginx:
 
 ```bash
-sudo nano /etc/nginx/sites-available/kasa-interiors
+sudo nano /etc/nginx/sites-available/default
 ```
 
 Use:
@@ -349,7 +359,7 @@ cd ~/kasa_interior_CloudOps
 git pull origin main
 docker compose down
 docker compose up -d --build
-docker compose logs -f
+docker compose logs --tail=100
 ```
 
 ## Step 14: Useful Runtime Commands
@@ -363,7 +373,7 @@ docker ps
 Check app logs:
 
 ```bash
-docker compose logs -f kasa-app
+docker compose logs -f
 ```
 
 Enter container:
@@ -426,8 +436,7 @@ cp .env.example .env
 nano .env
 docker compose up -d --build
 curl http://127.0.0.1:3000/api/health
-sudo nano /etc/nginx/sites-available/kasa-interiors
-sudo ln -s /etc/nginx/sites-available/kasa-interiors /etc/nginx/sites-enabled/
+sudo nano /etc/nginx/sites-available/default
 sudo nginx -t
 sudo systemctl restart nginx
 ```
@@ -443,7 +452,7 @@ http://YOUR_DOMAIN_OR_EC2_IP/
 Admin panel:
 
 ```text
-http://YOUR_DOMAIN_OR_EC2_IP/admin/index.html
+http://YOUR_DOMAIN_OR_EC2_PUBLIC_IP/admin
 ```
 
 ## Step 18: Troubleshooting
@@ -460,6 +469,7 @@ Check:
 
 - RDS endpoint is correct
 - RDS password is correct
+- `DB_SSL=true` is set in `.env`
 - port `3306` is allowed from EC2 security group
 - EC2 and RDS are in correct VPC/network
 
@@ -492,6 +502,17 @@ Run:
 docker ps
 curl http://127.0.0.1:3000/api/health
 sudo systemctl status nginx
+```
+
+### If EC2 IP shows the Nginx welcome page
+
+Your default Nginx config is still serving `/var/www/html`.
+
+Fix it by replacing `/etc/nginx/sites-available/default` with the reverse proxy config from Step 10, then run:
+
+```bash
+sudo nginx -t
+sudo systemctl restart nginx
 ```
 
 ## Step 19: Final Verification Checklist
